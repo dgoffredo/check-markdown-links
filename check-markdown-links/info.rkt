@@ -2,7 +2,7 @@
 
 (define name "check-markdown-links")
 
-(define deps '("racket" "markdown"))
+(define deps '("racket" "markdown" "threading-lib"))
 
 (define raco-commands 
   '(("check-markdown-links"                  ; command
