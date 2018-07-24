@@ -17,7 +17,7 @@
   ; supported markdown extensions, e.g. 
   ;
   ;       (markdowns '("readme" "README"))
-  ;    -> '("readme.md" "README.md" "readme.markdown" "README.mardown" ...)
+  ;    -> '("readme.md" "README.md" "readme.markdown" "README.markdown" ...)
   (append
     (for*/list ([extension extensions]
                 [stem stems])
@@ -29,10 +29,10 @@
   ; stems, e.g.
   ;
   ;        (glob-patterns '("../") '("README" "readme"))
-  ;     -> (stream "../README.md" "../**/README.md" "../readme.text" ...)
+  ;     -> (stream "../README.md" "../**/README.md" "../readme.mdtxt" ...)
   ;
   ;        (glob-patterns '("./" "../") '("*"))
-  ;     -> (stream "./*.md" "./*.text" ... "../*.md" "../**/*.md" ...)
+  ;     -> (stream "./*.md" "./*.mdtxt" ... "../*.md" "../**/*.md" ...)
   (apply 
     sequence-append
     (for/list ([path paths])
