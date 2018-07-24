@@ -63,16 +63,16 @@ searched.
 When a directory is "searched for markdown files," any normal file having on
 of the following extensions, or any link having one of the following
 extensions and referring to a normal file, is considered: 
-- .markdown
-- .mdown
-- .mkdn
-- .md
-- .mkd
-- .mdwn
-- .mdtxt
-- .mdtext
-- .Rmd
+- `.markdown`
+- `.mdown`
+- `.mkdn`
+- `.md`
+- `.mkd`
+- `.mdwn`
+- `.mdtxt`
+- `.mdtext`
+- `.Rmd`
 
 When the `--readmes-only` option is specified, only normal files named
-"README<ext>" or links named "README<ext>" referring to normal files will be
-considered, where "<ext>" is any of the file extensions above.
+`/(README|readme|Readme)<ext>/` or links with that name referring to normal
+files will be considered, where `<ext>` is any of the file extensions above.
