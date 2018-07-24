@@ -13,4 +13,4 @@ Images
 ------
 The mascot image for this respository is "Broken Link by Артур Абт from the
 Noun Project," which is released under the Creative Commons Attribution 3.0
-Unported license, and was accessed on May 13, 2018.
+Unported license, and was accessed on July 24, 2018.
