@@ -18,10 +18,9 @@
   ;
   ;       (markdowns '("readme" "README"))
   ;    -> '("readme.md" "README.md" "readme.markdown" "README.markdown" ...)
-  (append
-    (for*/list ([extension extensions]
-                [stem stems])
-      (~a stem extension))))
+  (for*/list ([extension extensions]
+              [stem stems])
+    (~a stem extension)))
 
 (define (glob-patterns paths stems)
   ; Return a sequence of glob patterns describing possible markdown files at
