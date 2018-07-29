@@ -35,11 +35,14 @@
   (equal? (file-or-directory-identity left-path)
           (file-or-directory-identity right-path)))
 
-(define begins-like-uri
+(define begins-like-uri?
   ; Return whether the specified path string begins like a URI, e.g. http://...
   (let ([beginning-regexp (pregexp "^\\w+:")])
     (lambda (path)
       (regexp-match beginning-regexp path))))
+
+(define (anchor-link? path)
+  (string-prefix? path "#"))
 
 (define (markdown-link-issues path)
   ; Return a generator that yields link-issue values found in the specified
@@ -51,8 +54,8 @@
         ; interested only in relative paths. Note that this is a lossy
         ; assumption, because "http://www.google.com" could be a relative
         ; path; namely, (build-path "http:" "www.google.com"). I ignore this
-        ; possibility.
-        (unless (begins-like-uri href)
+        ; possibility. Also, don't consider anchor (#) links.
+        (unless (or (begins-like-uri? href) (anchor-link? href))
           (let ([combined-path (build-path dir href)])
             (cond
               ; If it's a file, fine, but if it's the same file as the markdown
