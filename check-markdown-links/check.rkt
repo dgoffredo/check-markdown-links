@@ -16,7 +16,7 @@
   `(html ,@xexprs))
 
 (define (hrefs xexpr)
-  ; Return a list containing the value of each href attribute in the
+  ; Return a list containing the value of each linkish attribute in the
   ; specified xexpr.
   (append
     (se-path*/list '(a #:href) xexpr)
