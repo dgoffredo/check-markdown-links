@@ -18,7 +18,9 @@
 (define (hrefs xexpr)
   ; Return a list containing the value of each href attribute in the
   ; specified xexpr.
-  (se-path*/list '(a #:href) xexpr))
+  (append
+    (se-path*/list '(a #:href) xexpr)
+    (se-path*/list '(img #:src) xexpr)))
 
 (define (parent-directory path)
   ; Return a value representing the parent directory of the specified path,

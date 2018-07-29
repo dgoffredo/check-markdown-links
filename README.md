@@ -44,7 +44,8 @@ This [link](README.md) refers to this file, and so will produce an error. This
 [link](sdkfjalsdfklj) refers to a file that doesn't (shouldn't) exist, and so
 will also produce an error. But [this](check-markdown-links/check.rkt) is fine
 because it refers to a file that exists. [This](check-markdown-links) is also
-fine, because it refers to a directory that exists.
+fine, because it refers to a directory that exists. Finally, here's a invalid
+image: ![invalid image](not/there.jpg).
 
 More
 ----
