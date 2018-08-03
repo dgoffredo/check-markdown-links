@@ -75,5 +75,5 @@
        (exit status))]))
 
 ; for use as a command line tool
-(module+ tool
+(module+ main
   (main (current-command-line-arguments)))

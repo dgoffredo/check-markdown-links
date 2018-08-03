@@ -1,8 +1,32 @@
 
-## `raco pkg install` check-markdown-links tool
+LIBRARY = check-markdown-links
+BUILD_DIR = build/$(shell uname)
+SOURCES = $(shell find . -type f -name '*.rkt')
+
+$(BUILD_DIR)/bin/$(LIBRARY): $(SOURCES)
+	mkdir -p $(BUILD_DIR)
+	raco exe -o $(BUILD_DIR)/$(LIBRARY) check-markdown-links/main.rkt
+	raco distribute $(BUILD_DIR) $(BUILD_DIR)/$(LIBRARY)
+	rm $(BUILD_DIR)/$(LIBRARY)
+
+.PHONY: build test package clean
+
+## Create self-contained distribution
+build: $(BUILD_DIR)/bin/$(LIBRARY)
+
+## Run all of the unit tests
+test:
+	raco test --quiet --quiet-program .
+
+## `raco pkg install` the library
 package: $(SOURCES)
-	2>/dev/null raco pkg remove check-markdown-links
-	cd check-markdown-links && raco pkg install
+	-2>/dev/null raco pkg remove $(LIBRARY)
+	raco pkg install
+
+## Remove build and all build/run artifacts
+clean:
+	if [ -d build ]; then rm -r build; fi
+	find . -type d -name 'compiled'    -exec rm -r {} +
 
 # The "help" target and its associated code was copied from crifan's
 # December 7, 2017 comment on <https://gist.github.com/prwhite/8168133>,
