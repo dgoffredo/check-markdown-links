@@ -21,7 +21,7 @@ test:
 ## `raco pkg install` the library
 package: $(SOURCES)
 	-2>/dev/null raco pkg remove $(LIBRARY)
-	raco pkg install
+	cd check-markdown-links && raco pkg install
 
 ## Remove build and all build/run artifacts
 clean:
