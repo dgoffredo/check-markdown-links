@@ -44,6 +44,9 @@
 (define (anchor-link? path)
   (string-prefix? path "#"))
 
+(define (strip-anchor-suffix path)
+  (regexp-replace #rx"#.*$" path ""))
+
 (define (markdown-link-issues path)
   ; Return a generator that yields link-issue values found in the specified
   ; markdown file.
@@ -54,17 +57,19 @@
         ; interested only in relative paths. Note that this is a lossy
         ; assumption, because "http://www.google.com" could be a relative
         ; path; namely, (build-path "http:" "www.google.com"). I ignore this
-        ; possibility. Also, don't consider anchor (#) links.
-        (unless (or (begins-like-uri? href) (anchor-link? href))
-          (let ([combined-path (build-path dir href)])
+        ; possibility. Also, don't consider anchor (#) links or empty hrefs
+        ; (i.e. just an anchor <a>).
+        (unless (or (begins-like-uri? href) (anchor-link? href) (equal? href ""))
+          (let* ([href (strip-anchor-suffix href)]
+                 [combined-path (build-path dir href)])
             (cond
               ; If it's a file, fine, but if it's the same file as the markdown
               ; file, that's probably not intended.
               [(file-exists? combined-path)
                (when (refer-to-same-file? combined-path path)
-                 (yield (link-issue href 
+                 (yield (link-issue href
                           (~a "The file contains a hyperlink to itself."))))]
-  
+
               ; If it doesn't otherwise exist, that's an error.
               [(not (or (directory-exists? combined-path)
                         (link-exists? combined-path)))
@@ -78,8 +83,8 @@
   (for/sum ([issue (in-producer (markdown-link-issues path) (void))])
     (match issue
       [(link-issue href why)
-       (displayln 
-         (~a "The markdown file " path " references " href 
+       (displayln
+         (~a "The markdown file " path " references " href
            " which is problematic because: " why)
          output)
        1]))) ; sum ... 1 -> so this procedure returns the number of issues.
