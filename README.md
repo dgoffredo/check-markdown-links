@@ -6,7 +6,7 @@ Check markdown files for broken relative links.
 
 Why
 ---
-When I move source code around within a respository, I often forget to update
+When I move source code around within a repository, I often forget to update
 links that referred to the moved code.
 
 What
